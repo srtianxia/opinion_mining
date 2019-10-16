@@ -1,5 +1,5 @@
 ## opinion_mining
-之江杯2019-电商评论观点挖掘
+之江杯2019-电商评论观点挖掘，数据及赛题介绍请见[比赛页面](https://zhejianglab.aliyun.com/entrance/231731/information)
 
 ## 整体思路
 使用两阶段的pipeline的方式，第一阶段用BIES标注`OpinionTerms`和`Polarities`，第二阶段携带第一阶段抽取的**一个**`OpinionTerms`信息去标注`AspectTerms`(如果这个`OpinionTerms`没有对应`AspectTerms`，将`AspectTerms`的序列标注置为全O)，同时使用一个分类器去得到这个`OpinionTerms` `AspectTerms` pair或者`OpinionTerms`的`Categories`，两阶段的训练都是采用`multi-task`。为什么第二阶段不用BIES同时标注类别?因为没有`AspectTerms`的情况很多，但是又必须输出一个`Categories`。因为做这个比赛的时间比较赶，没有对两个阶段的总体做线下评分，都是看两阶段有提升就提交了，也没有搞模型融合，只是两阶段都跑了5折，概率平均去预测，最后复赛排名30，五折提升还是非常可观，要是有时间搞出多模型就更好了。
